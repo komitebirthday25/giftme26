@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Quicksand:wght@500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ===== BALLOON JUMPSCARE ===== -->
+  <div id="balloonScene">
+    <img id="balloon" class="balloon">
+    <div class="confetti-container" id="confetti"></div>
+  </div>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <div id="mainLayout">
+    <h1>🎉 Happy Birthday 🎉</h1>
+
+    <img
+      src="https://i.pinimg.com/originals/8b/e8/af/8be8af400915bec32515d0745d8ad44a.gif"
+      class="gif"
+      alt="gif"
+    >
+
+    <div class="question">Ingin melanjutkan ke halaman berikutnya?</div>
+
+    <div class="buttons" id="buttons">
+      <button class="btn yes" id="yesBtn">Yes</button>
+      <button class="btn no" id="noBtn">No</button>
+    </div>
+  </div>
+
+  <!-- ===== BIRTHDAY CARD ===== -->
+  <div class="birthday-card" id="birthdayCard">
+    <img src="fotoyangultah.png" alt="Foto Ulang Tahun">
+    <h2>Selamat Ulang Tahun 🎂</h2>  
+    <p>
+      Semoga di hari spesial ini kamu selalu diberi kesehatan,
+      kebahagiaan, dan semua hal baik yang kamu impikan.
+      Terima kasih sudah menjadi pribadi yang luar biasa.
+    </p>
+    <p>Tekan Kue Dibawah</p>
+
+    <img
+      id="giftBtn"
+      src="https://img2.clipart-library.com/28/birthday-cake-clipart-gif/birthday-cake-clipart-gif-17.gif"
+      alt="Gift Button"
+      class="gift-btn"
+    />
+
+    <div class="photo-container" id="photoContainer">
+      <div class="white-panel">
+        <img src="https://ugokawaii.com/wp-content/uploads/2022/10/gift.gif" class="main-photo" alt="Foto Utama">
+        <button class="close-gallery" id="closeGalleryBtn">✕</button>
+        <p>Pilih Hadiah Yang Kamu Inginkan</p>
+
+        <div class="gallery show">
+          <img id="hadiah1" src="https://i.pinimg.com/originals/f0/b3/87/f0b387aa0215ed48643747a5bea8652f.gif">
+          <img id="hadiah2" src="https://douglascuddletoy.com/wp-content/uploads/2025/10/264.webp">
+          <img id="hadiah3" src="https://media2.giphy.com/media/v1.Y2lkPTZjMDliOTUyeTQyZjlvNGoyamI3Nms1NHVwcXhsNG9laDVmd3UwM2IzejJ6dG9jaiZlcD12MV9zdGlja2Vyc19zZWFyY2gmY3Q9cw/iQg8MbGe2aG0bhZdTw/giphy.gif">
+          <img id="hadiah4" src="https://images.squarespace-cdn.com/content/v1/654c56709e999e2e383c42c2/86328746-8e60-41c9-bd41-fa9afbc25f25/Rolled+Ice+Cream+Brisbane+Pretzels.gif">
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+  const yesBtn = document.getElementById("yesBtn");
+  const noBtn = document.getElementById("noBtn");
+  const buttons = document.getElementById("buttons");
+  const mainLayout = document.getElementById("mainLayout");
+  const birthdayCard = document.getElementById("birthdayCard");
+
+  const balloonScene = document.getElementById("balloonScene");
+  const balloon = document.getElementById("balloon");
+  const confettiContainer = document.getElementById("confetti");
+
+  let activated = false;
+  let noClickCount = 0;
+
+  const maxScaleClicks = 5;
+  const scalePerClick = 1.25;
+  const btnWidth = 100;
+  const btnHeight = 45;
+  const minDistance = 120;
+
+  function randomPos() {
+    return {
+      x: Math.random() * (buttons.clientWidth - btnWidth),
+      y: Math.random() * (buttons.clientHeight - btnHeight)
+    };
+  }
+
+  function distance(a, b) {
+    return Math.hypot(a.x - b.x, a.y - b.y);
+  }
+
+  noBtn.addEventListener("click", () => {
+    if (noClickCount < maxScaleClicks) {
+      noClickCount++;
+      const scale = Math.pow(scalePerClick, noClickCount);
+      yesBtn.style.transform = `scale(${scale})`;
+    }
+
+    if (!activated) {
+      yesBtn.style.position = "absolute";
+      noBtn.style.position = "absolute";
+      activated = true;
+    }
+
+    let posYes, posNo;
+    do {
+      posYes = randomPos();
+      posNo = randomPos();
+    } while (distance(posYes, posNo) < minDistance);
+
+    yesBtn.style.left = `${posYes.x}px`;
+    yesBtn.style.top = `${posYes.y}px`;
+    noBtn.style.left = `${posNo.x}px`;
+    noBtn.style.top = `${posNo.y}px`;
+  });
+
+  yesBtn.addEventListener("click", () => {
+    const yakin = confirm("Apakah anda yakin?");
+    if (!yakin) return;
+
+    balloonScene.style.display = "flex";
+
+  // ====== TAHAP 1 (Balon Kempes - PNG transparan) ======
+  balloon.src = "https://www.clipartqueen.com/image-files/red-balloon-picture.png";
+  balloon.className = "balloon stage1";
+
+  // ====== TAHAP 2 (Balon Sudah Ditiup) ======
+  setTimeout(() => {
+    balloon.src = "https://www.clipartqueen.com/image-files/red-balloon-picture.png";
+    balloon.className = "balloon stage2";
+  }, 400);
+
+  // ====== TAHAP 3 (Membesar Full Screen) ======
+  setTimeout(() => {
+    balloon.className = "balloon stage3";
+  }, 800);
+
+  // ====== MELEDAK (Ganti jadi PNG pecah) ======
+  setTimeout(() => {
+  // Ganti gambar jadi balon meledak
+  balloon.src = "https://www.clker.com/cliparts/h/2/g/r/n/2/balloon-pop-hi.png";
+  balloon.className = "balloon exploded";
+
+  // Birthday card LANGSUNG muncul (tanpa delay)
+  mainLayout.style.display = "none";
+  birthdayCard.style.display = "block";
+
+  // Confetti langsung keluar
+  createConfettiBurst();
+
+}, 1200);
+
+// Hanya untuk membersihkan scene balon setelah animasi selesai
+setTimeout(() => {
+  balloonScene.style.display = "none";
+  balloon.className = "balloon";
+  confettiContainer.innerHTML = "";
+}, 2000);
+});
+
+function createConfettiBurst() {
+  const pieces = 300; // lebih ramai
+
+  for (let i = 0; i < pieces; i++) {
+    const conf = document.createElement("div");
+    conf.className = "confetti-piece";
+
+    const angle = Math.random() * Math.PI * 2;
+    const distance = 500 + Math.random() * 700;
+
+    const x = Math.cos(angle) * distance;
+    const y = Math.sin(angle) * distance;
+
+    conf.style.setProperty("--x", x + "px");
+    conf.style.setProperty("--y", y + "px");
+
+    conf.style.background = `hsl(${Math.random()*360},100%,50%)`;
+
+    // ukuran lebih variatif
+    conf.style.width = (4 + Math.random()*14) + "px";
+    conf.style.height = (6 + Math.random()*20) + "px";
+
+    // durasi lebih cepat dan acak
+    conf.style.animationDuration = (0.6 + Math.random()*0.6) + "s";
+
+    // sedikit rotasi acak
+    conf.style.transform = `rotate(${Math.random()*360}deg)`;
+
+    confettiContainer.appendChild(conf);
+    setTimeout(() => conf.remove(), 1600);
+  }
+  }
+
+  const giftBtn = document.getElementById("giftBtn");
+  const photoContainer = document.getElementById("photoContainer");
+  const closeGalleryBtn = document.getElementById("closeGalleryBtn");
+
+  let opened = false;
+
+  giftBtn.addEventListener("click", () => {
+    if (opened) return;
+    opened = true;
+
+    giftBtn.style.pointerEvents = "none";
+    giftBtn.style.opacity = "0.6";
+
+    const rect = giftBtn.getBoundingClientRect();
+    const originX = ((rect.left + rect.width / 2) / window.innerWidth) * 100;
+    const originY = ((rect.top + rect.height / 2) / window.innerHeight) * 100;
+
+    photoContainer.style.transformOrigin = `${originX}% ${originY}%`;
+    photoContainer.style.display = "flex";
+
+    requestAnimationFrame(() => {
+      photoContainer.classList.add("active");
+    });
+  });
+
+  closeGalleryBtn.addEventListener("click", () => {
+    photoContainer.classList.remove("active");
+
+    setTimeout(() => {
+      photoContainer.style.display = "none";
+      giftBtn.style.pointerEvents = "auto";
+      giftBtn.style.opacity = "1";
+      opened = false;
+    }, 1400);
+  });
+// ===== HADIAH BUTTON LINK =====
+document.getElementById("hadiah1").addEventListener("click", () => {
+  window.open("Taruh_Link_Hadiah1", "_blank");
+});
+
+document.getElementById("hadiah2").addEventListener("click", () => {
+  window.open("Taruh_Link_Hadiah2", "_blank");
+});
+
+document.getElementById("hadiah3").addEventListener("click", () => {
+  window.open("Taruh_Link_Hadiah3", "_blank");
+});
+
+document.getElementById("hadiah4").addEventListener("click", () => {
+  window.open("Taruh_Link_Hadiah4", "_blank");
+});
+</script>
+
+</body>
+</html>

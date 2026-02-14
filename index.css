@@ -1,0 +1,375 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Quicksand', sans-serif;
+}
+
+body {
+  height: 100vh;
+  min-height: 100dvh;
+  background: linear-gradient(
+      rgba(0, 0, 0, 0.55),
+      rgba(0, 0, 0, 0.55)
+    ),
+    url("https://png.pngtree.com/background/20250108/original/pngtree-happy-birthday-background-for-blue-stereo-creative-picture-image_16090792.jpg")
+    no-repeat center center / cover;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: white;
+}
+
+#mainLayout {
+  max-width: 420px;
+  width: 100%;
+  padding: 20px 16px;
+}
+
+h1 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 600;
+  font-size: 2rem;
+  letter-spacing: 1.5px;
+  margin-bottom: 16px;
+  color: #ffffff;
+  text-shadow: 0 4px 12px rgba(255, 192, 203, 0.6);
+}
+
+.gif {
+  width: 160px;
+  margin-bottom: 14px;
+}
+
+.question {
+  margin-bottom: 14px;
+}
+
+.buttons {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  min-height: 140px;
+  margin-top: 10px;
+}
+
+.btn {
+  width: 110px;
+  height: 45px;
+  border-radius: 25px;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  color: white;
+}
+
+.btn.yes {
+  background-color: #28a745;
+}
+
+.btn.no {
+  background-color: #dc3545;
+}
+
+/* Birthday Card */
+.birthday-card {
+  display: none;
+  max-width: 340px;
+  padding: 24px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 18px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+}
+
+.birthday-card img {
+  width: 140px;
+  height: 140px;
+  object-fit: cover;
+  margin-bottom: 16px;
+}
+
+.birthday-card h2 {
+  color: #ff4081;
+  margin-bottom: 12px;
+  font-family: 'Fredoka', cursive;
+  font-weight: 600;
+}
+
+.birthday-card p {
+  color: #333;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+#giftBtn {
+  display: inline-block;
+  padding: 14px 28px;
+  font-size: 16px;
+
+  width: auto;        /* jangan pakai fixed width */
+  height: auto;       /* jangan pakai fixed height */
+
+  border-radius: 8px;
+  box-sizing: border-box;
+cursor: pointer;
+  white-space: nowrap;  /* supaya teks tidak terpotong */
+}
+
+.gift-btn:active {
+  transform: scale(0.9);
+}
+
+/* WHITE ZOOM */
+.photo-container {
+  width: min(92vw, 420px);
+  height: min(92vh, 720px);
+  border-radius: 16px;
+  margin: auto;
+  position: fixed;
+  inset: 0;
+  background: white;
+
+  display: none;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  transform: scale(0);
+  transform-origin: center;
+  transition: transform 1.4s ease-in-out;
+
+  z-index: 999;
+  overflow: hidden;
+}
+
+.photo-container p {
+  font-family: 'Fredoka', cursive;
+  font-weight: 600;
+}
+
+.photo-container.active {
+  display: flex;
+  transform: scale(1);
+}
+
+.white-panel {
+  width: 100%;
+  height: 100%;
+  padding: 16px;
+  overflow-y: auto;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.main-photo {
+  width: 90%;
+  max-width: 320px;
+  border-radius: 14px;
+  margin-bottom: 16px;
+}
+
+/* Gallery langsung tampil */
+.gallery {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  padding: 14px;
+}
+
+.gallery img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: contain;
+  background: #fff;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.gallery img:hover {
+  transform: scale(1.05);
+}
+.close-gallery {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+
+  border: none;
+  background: rgba(0, 0, 0, 0.65);
+  color: white;
+
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+/* ===== BALLOON SCENE ===== */
+#balloonScene {
+  position: fixed;
+  inset: 0;
+  background: transparent;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 3000;
+  overflow: hidden;
+}
+
+.balloon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.5);
+  transition: transform 0.3s ease;
+  width: 200px;
+}
+
+/* Tahap 1 - kempes */
+.stage1 {
+  transform: translate(-50%, -50%) scale(0.5);
+}
+
+/* Tahap 2 - normal */
+.stage2 {
+  transform: translate(-50%, -50%) scale(2);
+}
+
+/* Tahap 3 - memenuhi layar */
+.stage3 {
+  transform: translate(-50%, -50%) scale(8);
+}
+
+/* Setelah meledak */
+.exploded {
+  transition: none;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+@keyframes pump1 {
+  from { transform: scale(0.3); }
+  to   { transform: scale(2); }
+}
+
+@keyframes pump2 {
+  from { transform: scale(2); }
+  to   { transform: scale(5); }
+}
+
+@keyframes pump3 {
+  from { transform: scale(5); }
+  to   { transform: scale(20); } /* penuh layar */
+}
+
+.balloon.explode {
+  transform: scale(0);
+  transition: transform 0.15s ease-out;
+}
+
+/* CONFETTI BRUTAL */
+.confetti-piece {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: explode linear forwards;
+}
+
+@keyframes explode {
+  to {
+    transform: translate(calc(-50% + var(--x)), calc(-50% + var(--y)));
+    opacity: 0;
+  }
+}
+
+.balloon-piece {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 60px;
+  height: 80px;
+  background: red;
+  border-radius: 50% 50% 45% 45%;
+  transform: translate(-50%, -50%) scale(1);
+  animation: balloonShatter 1s ease-out forwards;
+}
+
+@keyframes balloonShatter {
+  from {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: 
+      translate(calc(-50% + var(--x)), calc(-50% + var(--y)))
+      rotate(360deg)
+      scale(0.4);
+    opacity: 0;
+  }
+}
+
+/* ===== RESPONSIVE FIX DESKTOP & MOBILE ===== */
+
+html, body {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+/* Gunakan dynamic viewport agar tidak error di HP */
+body {
+  min-height: 100vh;
+  min-height: 100svh;
+  min-height: 100dvh;
+}
+
+/* Batas maksimal agar tidak terlalu lebar di desktop */
+#mainLayout,
+.birthday-card {
+  margin: auto;
+}
+
+/* Supaya tombol random tidak keluar layar */
+.buttons {
+  width: 100%;
+  max-width: 420px;
+  margin-left: auto;
+  margin-right: auto;
+  overflow: hidden;
+}
+
+/* Perbaiki zoom panel agar aman di semua device */
+.photo-container {
+  max-width: 95vw;
+  max-height: 95vh;
+  max-height: 95dvh;
+}
+
+/* Balon agar proporsional di HP */
+.balloon {
+  width: clamp(120px, 25vw, 220px);
+}
+
+/* Font lebih adaptif */
+h1 {
+  font-size: clamp(1.5rem, 4vw, 2rem);
+}
+
+.birthday-card h2 {
+  font-size: clamp(1.2rem, 3.5vw, 1.5rem);
+}
+
+/* Lock agar tetap center di semua device */
+#mainLayout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
