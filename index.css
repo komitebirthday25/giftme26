@@ -387,6 +387,11 @@ h1 {
   pointer-events: auto;
 }
 
+#balloonScene.show {
+  pointer-events: auto;
+}
+
+
 
 
 
