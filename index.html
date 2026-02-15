@@ -239,59 +239,44 @@ function createConfettiBurst() {
     }, 1400);
   });
 
-  function createFullScreenConfetti() {
+  function createCursorConfetti(x, y) {
 
   const layer = document.createElement("div");
-  layer.className = "fullscreen-confetti";
+  layer.className = "cursor-confetti-layer";
   document.body.appendChild(layer);
 
-  const pieces = 400;
+  const pieces = 350;
 
   for (let i = 0; i < pieces; i++) {
+
     const conf = document.createElement("div");
-    conf.className = "confetti-piece";
+    conf.className = "cursor-confetti";
 
-    const side = Math.floor(Math.random() * 4);
-    let startX, startY;
+    conf.style.left = x + "px";
+    conf.style.top = y + "px";
 
-    if (side === 0) {
-      startX = Math.random() * window.innerWidth;
-      startY = -20;
-    } else if (side === 1) {
-      startX = Math.random() * window.innerWidth;
-      startY = window.innerHeight + 20;
-    } else if (side === 2) {
-      startX = -20;
-      startY = Math.random() * window.innerHeight;
-    } else {
-      startX = window.innerWidth + 20;
-      startY = Math.random() * window.innerHeight;
-    }
+    const angle = Math.random() * Math.PI * 2;
+    const distance = 200 + Math.random() * 500;
 
-    conf.style.left = startX + "px";
-    conf.style.top = startY + "px";
+    const moveX = Math.cos(angle) * distance;
+    const moveY = Math.sin(angle) * distance;
 
-    const centerX = window.innerWidth / 2;
-    const centerY = window.innerHeight / 2;
-
-    const x = centerX - startX;
-    const y = centerY - startY;
-
-    conf.style.setProperty("--x", x + "px");
-    conf.style.setProperty("--y", y + "px");
+    conf.style.setProperty("--x", moveX + "px");
+    conf.style.setProperty("--y", moveY + "px");
+    conf.style.setProperty("--r", (Math.random()*720 - 360) + "deg");
 
     conf.style.background = `hsl(${Math.random()*360},100%,50%)`;
     conf.style.width = (4 + Math.random()*14) + "px";
     conf.style.height = (6 + Math.random()*20) + "px";
-    conf.style.animationDuration = (1 + Math.random()*0.5) + "s";
+
+    conf.style.animationDuration = (0.8 + Math.random()*0.7) + "s";
 
     layer.appendChild(conf);
   }
 
-  // Bersihkan layer setelah selesai
   setTimeout(() => {
     layer.remove();
-  }, 1800);
+  }, 1700);
 }
   
 // ===== HADIAH BUTTON LINK =====
@@ -324,6 +309,7 @@ document.getElementById("hadiah4").addEventListener("click", () => {
 </body>
 
 </html>
+
 
 
 
