@@ -244,40 +244,27 @@ function createConfettiBurst() {
     }, 1400);
   });
 
- function createFullScreenConfetti() {
+ function createFullScreenConfetti(originElement) {
   const pieces = 400;
+
+  const rect = originElement.getBoundingClientRect();
+  const originX = rect.left + rect.width / 2;
+  const originY = rect.top + rect.height / 2;
 
   for (let i = 0; i < pieces; i++) {
     const conf = document.createElement("div");
     conf.className = "confetti-piece";
 
-    // Random start dari sisi layar
-    const side = Math.floor(Math.random() * 4);
-    let startX, startY;
+    conf.style.position = "fixed";
+    conf.style.left = originX + "px";
+    conf.style.top = originY + "px";
+    conf.style.zIndex = "9999"; // pastikan di atas gallery
 
-    if (side === 0) { // atas
-      startX = Math.random() * window.innerWidth;
-      startY = -20;
-    } else if (side === 1) { // bawah
-      startX = Math.random() * window.innerWidth;
-      startY = window.innerHeight + 20;
-    } else if (side === 2) { // kiri
-      startX = -20;
-      startY = Math.random() * window.innerHeight;
-    } else { // kanan
-      startX = window.innerWidth + 20;
-      startY = Math.random() * window.innerHeight;
-    }
+    const angle = Math.random() * Math.PI * 2;
+    const distance = 300 + Math.random() * 500;
 
-    conf.style.left = startX + "px";
-    conf.style.top = startY + "px";
-
-    // Gerak ke tengah layar
-    const centerX = window.innerWidth / 2;
-    const centerY = window.innerHeight / 2;
-
-    const x = centerX - startX;
-    const y = centerY - startY;
+    const x = Math.cos(angle) * distance;
+    const y = Math.sin(angle) * distance;
 
     conf.style.setProperty("--x", x + "px");
     conf.style.setProperty("--y", y + "px");
@@ -285,7 +272,7 @@ function createConfettiBurst() {
     conf.style.background = `hsl(${Math.random()*360},100%,50%)`;
     conf.style.width = (4 + Math.random()*14) + "px";
     conf.style.height = (6 + Math.random()*20) + "px";
-    conf.style.animationDuration = (1 + Math.random()*0.5) + "s";
+    conf.style.animationDuration = (0.8 + Math.random()*0.6) + "s";
 
     document.body.appendChild(conf);
     setTimeout(() => conf.remove(), 2000);
@@ -293,28 +280,28 @@ function createConfettiBurst() {
 }
   
 // ===== HADIAH BUTTON LINK =====
-function hadiahClick(link) {
-  createFullScreenConfetti();
+function hadiahClick(link, element) {
+  createFullScreenConfetti(element);
 
   setTimeout(() => {
     window.open(link, "_blank");
-  }, 1500); // delay 1.5 detik
+  }, 1500);
 }
 
-document.getElementById("hadiah1").addEventListener("click", () => {
-  hadiahClick("https://wa.me/6281229753061?text=Terimakasih%20untuk%20gift%20dan%20ucapannya%2C%20doa%20terbaik%20untukmu%20juga%20yaa%F0%9F%AB%B6%F0%9F%8F%BB%0A%0Abtw%20hadiah%20bunganya%20beneran%20dikasih%20kan%F0%9F%98%9A");
+document.getElementById("hadiah1").addEventListener("click", function() => {
+  hadiahClick("https://wa.me/6281229753061?text=Terimakasih%20untuk%20gift%20dan%20ucapannya%2C%20doa%20terbaik%20untukmu%20juga%20yaa%F0%9F%AB%B6%F0%9F%8F%BB%0A%0Abtw%20hadiah%20bunganya%20beneran%20dikasih%20kan%F0%9F%98%9A", this);
 });
 
-document.getElementById("hadiah2").addEventListener("click", () => {
-  hadiahClick("https://wa.me/6281229753061?text=Terimakasih%20untuk%20gift%20dan%20ucapannya%2C%20doa%20terbaik%20untukmu%20juga%20yaa%F0%9F%AB%B6%F0%9F%8F%BB%0A%0Abtw%20hadiah%20bonekanya%20beneran%20dikasih%20kan%F0%9F%98%9A");
+document.getElementById("hadiah2").addEventListener("click", function() => {
+  hadiahClick("https://wa.me/6281229753061?text=Terimakasih%20untuk%20gift%20dan%20ucapannya%2C%20doa%20terbaik%20untukmu%20juga%20yaa%F0%9F%AB%B6%F0%9F%8F%BB%0A%0Abtw%20hadiah%20bonekanya%20beneran%20dikasih%20kan%F0%9F%98%9A", this);
 });
 
-document.getElementById("hadiah3").addEventListener("click", () => {
-  hadiahClick("https://wa.me/6281229753061?text=Terimakasih%20untuk%20gift%20dan%20ucapannya%2C%20doa%20terbaik%20untukmu%20juga%20yaa%F0%9F%AB%B6%F0%9F%8F%BB%0A%0Abtw%20hadiah%20coklatnya%20beneran%20dikasih%20kan%F0%9F%98%9A");
+document.getElementById("hadiah3").addEventListener("click", function() => {
+  hadiahClick("https://wa.me/6281229753061?text=Terimakasih%20untuk%20gift%20dan%20ucapannya%2C%20doa%20terbaik%20untukmu%20juga%20yaa%F0%9F%AB%B6%F0%9F%8F%BB%0A%0Abtw%20hadiah%20coklatnya%20beneran%20dikasih%20kan%F0%9F%98%9A", this);
 });
 
-document.getElementById("hadiah4").addEventListener("click", () => {
-  hadiahClick("https://wa.me/6281229753061?text=Terimakasih%20untuk%20gift%20dan%20ucapannya%2C%20doa%20terbaik%20untukmu%20juga%20yaa%F0%9F%AB%B6%F0%9F%8F%BB%0A%0Abtw%20hadiah%20es%20krimnya%20beneran%20dikasih%20kan%F0%9F%98%9A");
+document.getElementById("hadiah4").addEventListener("click", function() => {
+  hadiahClick("https://wa.me/6281229753061?text=Terimakasih%20untuk%20gift%20dan%20ucapannya%2C%20doa%20terbaik%20untukmu%20juga%20yaa%F0%9F%AB%B6%F0%9F%8F%BB%0A%0Abtw%20hadiah%20es%20krimnya%20beneran%20dikasih%20kan%F0%9F%98%9A", this);
 });
 
 </script>
@@ -322,6 +309,7 @@ document.getElementById("hadiah4").addEventListener("click", () => {
 </body>
 
 </html>
+
 
 
 
