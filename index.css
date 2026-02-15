@@ -375,3 +375,16 @@ h1 {
 
 }
 
+/* FULLSCREEN CONFETTI LAYER */
+.fullscreen-confetti {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 5000;
+  overflow: hidden;
+}
+
+.fullscreen-confetti .confetti-piece {
+  position: absolute;
+}
+
