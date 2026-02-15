@@ -259,6 +259,7 @@ function createConfettiBurst() {
     conf.style.left = originX + "px";
     conf.style.top = originY + "px";
     conf.style.zIndex = "9999"; // pastikan di atas gallery
+    conf.style.pointerEvents = "none";
 
     const angle = Math.random() * Math.PI * 2;
     const distance = 300 + Math.random() * 500;
@@ -309,6 +310,7 @@ document.getElementById("hadiah4").addEventListener("click", function() => {
 </body>
 
 </html>
+
 
 
 
