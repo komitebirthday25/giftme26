@@ -283,6 +283,7 @@ cursor: pointer;
   left: 50%;
   transform: translate(-50%, -50%);
   animation: explode linear forwards;
+  pointer-events: none
 }
 
 @keyframes explode {
@@ -374,6 +375,16 @@ h1 {
   flex-direction: column;
   align-items: center;
 
+}
+
+#balloonScene,
+.photo-container {
+  pointer-events: none;
+}
+
+#balloonScene.active,
+.photo-container.active {
+  pointer-events: auto;
 }
 
 
