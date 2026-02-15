@@ -239,26 +239,30 @@ function createConfettiBurst() {
   });
 
   function createFullScreenConfetti() {
+
+  const layer = document.createElement("div");
+  layer.className = "fullscreen-confetti";
+  document.body.appendChild(layer);
+
   const pieces = 400;
 
   for (let i = 0; i < pieces; i++) {
     const conf = document.createElement("div");
     conf.className = "confetti-piece";
 
-    // Random start dari sisi layar
     const side = Math.floor(Math.random() * 4);
     let startX, startY;
 
-    if (side === 0) { // atas
+    if (side === 0) {
       startX = Math.random() * window.innerWidth;
       startY = -20;
-    } else if (side === 1) { // bawah
+    } else if (side === 1) {
       startX = Math.random() * window.innerWidth;
       startY = window.innerHeight + 20;
-    } else if (side === 2) { // kiri
+    } else if (side === 2) {
       startX = -20;
       startY = Math.random() * window.innerHeight;
-    } else { // kanan
+    } else {
       startX = window.innerWidth + 20;
       startY = Math.random() * window.innerHeight;
     }
@@ -266,7 +270,6 @@ function createConfettiBurst() {
     conf.style.left = startX + "px";
     conf.style.top = startY + "px";
 
-    // Gerak ke tengah layar
     const centerX = window.innerWidth / 2;
     const centerY = window.innerHeight / 2;
 
@@ -281,10 +284,14 @@ function createConfettiBurst() {
     conf.style.height = (6 + Math.random()*20) + "px";
     conf.style.animationDuration = (1 + Math.random()*0.5) + "s";
 
-    document.body.appendChild(conf);
-    setTimeout(() => conf.remove(), 2000);
+    layer.appendChild(conf);
   }
-  }
+
+  // Bersihkan layer setelah selesai
+  setTimeout(() => {
+    layer.remove();
+  }, 1800);
+}
   
 // ===== HADIAH BUTTON LINK =====
 function hadiahClick(link) {
@@ -316,4 +323,5 @@ document.getElementById("hadiah4").addEventListener("click", () => {
 </body>
 
 </html>
+
 
