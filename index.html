@@ -316,36 +316,22 @@ document.getElementById("hadiah4").addEventListener("click", () => {
   hadiahClick("https://wa.me/6281229753061?text=Terimakasih%20untuk%20gift%20dan%20ucapannya%2C%20doa%20terbaik%20untukmu%20juga%20yaa%F0%9F%AB%B6%F0%9F%8F%BB%0A%0Abtw%20hadiah%20es%20krimnya%20beneran%20dikasih%20kan%F0%9F%98%9A");
 });
 
-  window.addEventListener("load", function () {
-
+  window.addEventListener("load", function() {
   const music = document.getElementById("bgMusic");
-  music.volume = 0;
-  music.muted = false;
 
-  function fadeIn() {
-    let vol = 0;
-    const interval = setInterval(() => {
-      if (vol < 0.6) {
-        vol += 0.02;
-        music.volume = vol;
-      } else {
-        clearInterval(interval);
-      }
-    }, 50);
-  }
+  // Autoplay workaround untuk mobile
+  const playMusic = () => {
+    music.play().catch(() => {});
+    document.removeEventListener("click", playMusic);
+  };
 
-  // Coba autoplay
-  music.play().then(() => {
-    fadeIn();
-  }).catch(() => {
-    // Kalau diblokir, play saat sentuhan pertama (tanpa tombol)
-    document.addEventListener("touchstart", function autoPlayOnce() {
-      music.play();
-      fadeIn();
-      document.removeEventListener("touchstart", autoPlayOnce);
-    });
+  music.volume = 0.6;
+
+  // Coba langsung play
+  music.play().catch(() => {
+    // Jika diblokir browser, tunggu klik pertama
+    document.addEventListener("click", playMusic);
   });
-
 });
 
 </script>
@@ -354,13 +340,14 @@ document.getElementById("hadiah4").addEventListener("click", () => {
 <audio id="popSound" src="ledakan.mp3" preload="auto"></audio>
 
 <!-- Background Music -->
-<audio id="bgMusic" src="lagu.mp3" loop playsinline></audio>
+<audio id="bgMusic" src="lagu.mp3" loop></audio>
 
 
   
 </body>
 
 </html>
+
 
 
 
