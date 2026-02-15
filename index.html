@@ -237,24 +237,83 @@ function createConfettiBurst() {
       opened = false;
     }, 1400);
   });
+
+  function createFullScreenConfetti() {
+  const pieces = 400;
+
+  for (let i = 0; i < pieces; i++) {
+    const conf = document.createElement("div");
+    conf.className = "confetti-piece";
+
+    // Random start dari sisi layar
+    const side = Math.floor(Math.random() * 4);
+    let startX, startY;
+
+    if (side === 0) { // atas
+      startX = Math.random() * window.innerWidth;
+      startY = -20;
+    } else if (side === 1) { // bawah
+      startX = Math.random() * window.innerWidth;
+      startY = window.innerHeight + 20;
+    } else if (side === 2) { // kiri
+      startX = -20;
+      startY = Math.random() * window.innerHeight;
+    } else { // kanan
+      startX = window.innerWidth + 20;
+      startY = Math.random() * window.innerHeight;
+    }
+
+    conf.style.left = startX + "px";
+    conf.style.top = startY + "px";
+
+    // Gerak ke tengah layar
+    const centerX = window.innerWidth / 2;
+    const centerY = window.innerHeight / 2;
+
+    const x = centerX - startX;
+    const y = centerY - startY;
+
+    conf.style.setProperty("--x", x + "px");
+    conf.style.setProperty("--y", y + "px");
+
+    conf.style.background = `hsl(${Math.random()*360},100%,50%)`;
+    conf.style.width = (4 + Math.random()*14) + "px";
+    conf.style.height = (6 + Math.random()*20) + "px";
+    conf.style.animationDuration = (1 + Math.random()*0.5) + "s";
+
+    document.body.appendChild(conf);
+    setTimeout(() => conf.remove(), 2000);
+  }
+  }
+  
 // ===== HADIAH BUTTON LINK =====
+function hadiahClick(link) {
+  createFullScreenConfetti();
+
+  setTimeout(() => {
+    window.open(link, "_blank");
+  }, 1500); // delay 1.5 detik
+}
+
 document.getElementById("hadiah1").addEventListener("click", () => {
-  window.open("Taruh_Link_Hadiah1", "_blank");
+  hadiahClick("Taruh_Link_Hadiah1");
 });
 
 document.getElementById("hadiah2").addEventListener("click", () => {
-  window.open("Taruh_Link_Hadiah2", "_blank");
+  hadiahClick("Taruh_Link_Hadiah2");
 });
 
 document.getElementById("hadiah3").addEventListener("click", () => {
-  window.open("Taruh_Link_Hadiah3", "_blank");
+  hadiahClick("Taruh_Link_Hadiah3");
 });
 
 document.getElementById("hadiah4").addEventListener("click", () => {
-  window.open("Taruh_Link_Hadiah4", "_blank");
+  hadiahClick("Taruh_Link_Hadiah4");
 });
+
 </script>
 
 </body>
 
 </html>
+
