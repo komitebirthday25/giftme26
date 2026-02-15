@@ -376,8 +376,8 @@ h1 {
 
 }
 
-/* FULLSCREEN CONFETTI LAYER */
-.fullscreen-confetti {
+/* CONFETTI EXPLOSION DARI CURSOR */
+.cursor-confetti-layer {
   position: fixed;
   inset: 0;
   pointer-events: none;
@@ -385,8 +385,25 @@ h1 {
   overflow: hidden;
 }
 
-.fullscreen-confetti .confetti-piece {
+.cursor-confetti {
   position: absolute;
+  will-change: transform, opacity;
+  animation: cursorExplode forwards cubic-bezier(.2,.8,.2,1);
 }
+
+@keyframes cursorExplode {
+  0% {
+    transform: translate(0,0) rotate(0deg) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: 
+      translate(var(--x), var(--y))
+      rotate(var(--r))
+      scale(0.6);
+    opacity: 0;
+  }
+}
+
 
 
